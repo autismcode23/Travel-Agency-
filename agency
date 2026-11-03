@@ -1,0 +1,71 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        String userName, userPassword;
+        String userNameAttempt, userPasswordAttempt;
+        String adminName = "admin";      // set your admin credentials
+        String adminPass = "admin123";
+        boolean loginLoop = true;
+        boolean adminAccess = false;
+
+        // Register
+        System.out.print("Please enter your username: ");
+        userName = input.nextLine();
+        System.out.print("Please enter your password: ");
+        userPassword = input.nextLine();
+        System.out.println("Account registered!");
+
+        // Login
+        while (loginLoop) {
+            System.out.print("Please enter your username to login: ");
+            userNameAttempt = input.nextLine();
+            System.out.print("Please enter your password to login: ");
+            userPasswordAttempt = input.nextLine();
+
+            if (userNameAttempt.equals(adminName) && userPasswordAttempt.equals(adminPass)) {
+                adminAccess = true;
+                loginLoop = false;
+                System.out.println("Welcome, admin!");
+                // dito mag lologin ang admin tapos admin stuff makikita niya
+            } else if (userNameAttempt.equals(userName) && userPasswordAttempt.equals(userPassword)) {
+                loginLoop = false;
+                System.out.println("Login successful!");
+                // mag proproceed siya sa "normal" na menu
+            } else {
+                System.out.println("Wrong username or password. Try again.");
+            }
+        }
+
+        // Menu (after successful login)
+        if (!adminAccess) {
+            System.out.println("Press 1 for locations. Press 2 to see more information about us");
+            try {
+                int choice = input.nextInt();
+                input.nextLine();
+
+                if (choice == 1) {
+                    /* mag papakita locations dito tapos pipili si user ng locations
+                       tapos tytype ng user ang name ng location para makita niya details at ang
+                       package na pwede niya piliin */
+                    System.out.print("Type the location name: ");
+                    String locationChoice = input.nextLine();
+
+                    if (locationChoice.equalsIgnoreCase("Boracay")) {
+                        // show details and packages
+                    }
+                } else if (choice == 2) {
+                    // dito mag papakita ang mga stuff tungkol sa atin like mission vision bla bla bla
+                } else {
+                    System.out.println("Invalid choice.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                System.out.println("Please enter a number only.");
+            }
+        }
+
+        input.close();
+    }
+}
